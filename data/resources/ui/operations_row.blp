@@ -1,0 +1,22 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+
+template $OperationsRow : Gtk.ListBoxRow {
+  child: Gtk.Box {
+    spacing: 12;
+    margin-bottom: 12;
+    margin-top: 12;
+    margin-start: 6;
+    margin-end: 6;
+    Gtk.Label title_label {
+      halign: start;
+    }
+  };
+}

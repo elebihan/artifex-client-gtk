@@ -1,0 +1,7 @@
+src/actions.rs
+src/app.rs
+src/header_bar.rs
+src/main.rs
+src/resources.rs
+
+data/gtk/menus.ui

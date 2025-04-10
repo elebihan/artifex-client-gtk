@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=artifex-client-gtk
+Comment=Insert description here
+TryExec=artifex-client-gtk
+Exec=artifex-client-gtk
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=com.elebihan.artifex-client-gtk
+Categories=GTK;Utility

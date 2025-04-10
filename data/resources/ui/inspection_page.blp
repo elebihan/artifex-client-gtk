@@ -1,0 +1,42 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $InspectionPage : $OperationPage {
+  Adw.Bin {
+    margin-top: 18;
+    margin-bottom: 18;
+    margin-start: 18;
+    margin-end: 18;
+    Adw.PreferencesGroup {
+      title: _("System information");
+      header-suffix: Adw.Spinner activity_spinner {
+        visible: false;
+      };
+      Adw.ActionRow kernel_version_row {
+        title: _("Kernel version");
+        subtitle-selectable: true;
+      }
+      Adw.ActionRow system_uptime_row {
+        title: _("System uptime");
+        subtitle-selectable: true;
+      }
+    }
+    ShortcutController {
+      scope: managed;
+      propagation-phase: capture;
+
+      Shortcut {
+        trigger: "<Control>r";
+        action: "action(inspection-page.refresh)";
+      }
+    }
+  }
+}

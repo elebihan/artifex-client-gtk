@@ -1,0 +1,24 @@
+[package]
+name = "artifex-client-gtk"
+version = "0.1.1"
+authors = ["Eric Le Bihan <eric.le.bihan.dev@free.fr>"]
+license = "MIT"
+homepage = "https://github.com/elebihan/artifex-client-gtk"
+description = """
+This is a GTK-based client to interact with an Artifex server over gPRC.
+"""
+edition = "2021"
+
+[profile.release]
+lto = true
+
+[dependencies]
+adw = { package = "libadwaita", version = "0.7", features = ["v1_6"] }
+async-channel = "2.3.1"
+gettext-rs = { version = "0.7", features = ["gettext-system"] }
+gtk = { version = "0.9", package = "gtk4", features = ["v4_12", "blueprint"] }
+once_cell = "1.19.0"
+thiserror = "1.0.52"
+tokio = { version = "1.44.1", features = ["time", "rt-multi-thread", "sync"] }
+tracing = "0.1"
+tracing-subscriber = "0.3"

@@ -1,0 +1,31 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $ConnectionBar : Adw.Bin {
+  Gtk.Box {
+    hexpand: true;
+    [start]
+    Gtk.Entry url_entry {
+      hexpand: true;
+      tooltip-text: _("URL of the server");
+      placeholder-text: _("Enter URL of the server");
+    }
+    [end]
+    Gtk.Button connect_button {
+      icon-name: "media-playback-start-symbolic";
+      action-name: "win.toggle-connection";
+      valign: center;
+      tooltip-text: _("Toggle connection to server");
+      styles ["suggested-action"]
+    }
+    styles ["toolbar"]
+  }
+}

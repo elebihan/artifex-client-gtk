@@ -1,0 +1,31 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $OperationPage : Adw.Bin {
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar header_bar {
+      title-widget: Adw.WindowTitle window_title {};
+    }
+    content: Gtk.Box {
+      orientation: vertical;
+      Gtk.ScrolledWindow {
+        hscrollbar-policy: never;
+        vexpand: true;
+        Gtk.Box container {
+          hexpand: true;
+          spacing: 12;
+          orientation: vertical;
+        }
+      }
+    };
+  }
+}

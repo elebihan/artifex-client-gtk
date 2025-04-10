@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Eric Le Bihan  <eric.le.bihan.dev@free.fr> -->
+<component type="desktop-application">
+  <id>@app-id@</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>artifex-client-gtk</name>
+  <summary>GTK-based client to interact with an Artifex server over gRPC</summary>
+  <description>
+      <p>GTK-based client to interact with an Artifex server over gRPC</p>
+  </description>
+  <screenshots>
+    <screenshot type="default">
+      <caption>System Information</caption>
+      <image type="source" width="2750" height="1544">https://github.com/elebihan/artifex-client-gtk/-/raw/master/data/screenshots/system-information.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/elebihan/artifex-client-gtk</url>
+  <url type="bugtracker">https://github.com/elebihan/artifex-client-gtk/issues</url>
+  <content_rating type="oars-1.0" />
+  <releases>
+    <release version="0.1.1" date="2025-04-10" />
+  </releases>
+  <developer_name>Eric Le Bihan</developer_name>
+  <update_contact>eric.le.bihan.dev@free.fr</update_contact>
+  <translation type="gettext">@gettext-package@</translation>
+  <launchable type="desktop-id">@app-id@.desktop</launchable>
+</component>

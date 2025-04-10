@@ -1,0 +1,26 @@
+# -*- mode: meson -*-
+#
+# This file is part of artifex-client-gtk
+#
+# Copyright (c) 2025 Eric Le Bihan
+#
+# SPDX-License-Identifier: MIT
+#
+
+option(
+  'man-pages',
+  type : 'boolean',
+  value : true,
+  description : '''build MAN pages'''
+)
+
+option(
+  'profile',
+  type: 'combo',
+  choices: [
+    'development',
+    'production'
+  ],
+  value: 'production',
+  description: 'The build profile for artifex-client-gtk. One of "production" or "development".'
+)

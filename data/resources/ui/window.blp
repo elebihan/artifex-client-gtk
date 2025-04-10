@@ -1,0 +1,94 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+ using Gtk 4.0;
+ using Adw 1;
+
+ template $Window : Adw.ApplicationWindow {
+   title: "artifex-client-gtk";
+   default-width: 600;
+   default-height: 600;
+   width-request: 360;
+   height-request: 360;
+
+   Adw.Breakpoint {
+     condition("max-width: 700px")
+     setters {
+       client_view.collapsed: true;
+     }
+   }
+
+   content: Adw.NavigationSplitView client_view {
+     show-content: true;
+     sidebar-width-fraction: 0.5;
+     sidebar: Adw.NavigationPage {
+       title: "Artifex Client Gtk";
+       Adw.ToolbarView {
+         [top]
+         Adw.HeaderBar header_bar {
+           [end]
+           Gtk.MenuButton {
+             icon-name: "open-menu-symbolic";
+             menu-model: main_menu;
+             tooltip-text: _("Menu");
+           }
+         }
+         content: Gtk.Box {
+           hexpand: true;
+           orientation: vertical;
+
+           $ConnectionBar connection_bar {}
+
+           Gtk.ScrolledWindow {
+             hscrollbar-policy: never;
+             Gtk.Viewport {
+               scroll-to-focus: true;
+               vexpand: true;
+               Gtk.ListBox operations_list {
+                 selection-mode: browse;
+                 Gtk.ListBoxRow {
+                   activatable: false;
+                   selectable: false;
+                   Gtk.Label {
+                     label: _("System");
+                     halign: start;
+                     styles [ "heading"]
+                   }
+                 }
+                 $OperationsRow {
+                     title: _("Inspection");
+                     page-name: "inspection";
+                     tooltip-text: _("Inspect the device");
+                   }
+                   styles ["navigation-sidebar"]
+                 }
+             }
+           }
+         };
+       }
+     };
+     content: Adw.NavigationPage {
+       title: "Client";
+       Gtk.Stack stack {
+         Gtk.StackPage {
+           name: "connection-status";
+           child: $ConnectionStatusPage connection_status_page {};
+         }
+         Gtk.StackPage {
+           name: "inspection";
+           child: $InspectionPage inspection_page {};
+         }
+       }
+     };
+   };
+ }
+
+menu main_menu {
+  item(_("About artifex-client-gtk"), "app.about")
+  item(_("Show shortcuts"), "win.show-help-overlay")
+}
