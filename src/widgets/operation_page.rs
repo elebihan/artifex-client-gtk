@@ -83,8 +83,8 @@ impl OperationPage {
     pub fn get_header_bar(&self) -> adw::HeaderBar {
         self.imp().header_bar.get()
     }
-    pub fn set_client(&self, client: Arc<Mutex<Client>>) {
-        *self.imp().client.borrow_mut() = Some(client);
+    pub fn set_client(&self, client: Option<Arc<Mutex<Client>>>) {
+        *self.imp().client.borrow_mut() = client;
     }
     pub fn set_busy(&self, busy: bool) {
         self.imp().container.set_sensitive(!busy);

@@ -13,6 +13,8 @@ use gtk::{
     gio,
     glib::{self, clone},
 };
+use std::cell::RefCell;
+use std::ops::Deref;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tracing::{debug, error, info, warn};
@@ -44,6 +46,7 @@ mod imp {
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
         pub settings: gio::Settings,
+        pub client: RefCell<Option<Arc<Mutex<Client>>>>,
     }
 
     impl Default for Window {
@@ -56,6 +59,7 @@ mod imp {
                 inspection_page: TemplateChild::default(),
                 stack: TemplateChild::default(),
                 settings: gio::Settings::new(APP_ID),
+                client: RefCell::new(None),
             }
         }
     }
@@ -181,11 +185,11 @@ impl Window {
     }
 
     fn setup_pages(&self) {
-        if let Some(client) = self.client() {
+        if let Some(client) = self.imp().client.borrow().deref() {
             self.imp()
                 .inspection_page
                 .upcast_ref::<OperationPage>()
-                .set_client(client);
+                .set_client(Some(client.clone()));
         }
     }
 
@@ -203,14 +207,6 @@ impl Window {
         self.imp().stack.set_visible_child_name(name);
     }
 
-    pub fn client(&self) -> Option<Arc<Mutex<Client>>> {
-        self.application().map(|app| {
-            app.downcast::<crate::application::Application>()
-                .expect("Not an Application")
-                .client()
-        })
-    }
-
     fn enable_connection(&self, enabled: bool) {
         let imp = self.imp();
         imp.connection_bar.enable_connection(enabled);
@@ -219,63 +215,59 @@ impl Window {
         imp.operations_list.set_sensitive(!enabled);
     }
 
+    async fn create_connection(&self, url: String) -> bool {
+        let url = Arc::new(url);
+        let (sender, receiver) = async_channel::bounded::<Result<Client, client::Error>>(1);
+        client::runtime().spawn(clone!(
+            #[weak]
+            url,
+            async move {
+                let result = Client::connect(&url).await;
+                sender
+                    .send(result)
+                    .await
+                    .expect("The channel needs to be open")
+            }
+        ));
+        while let Ok(response) = receiver.recv().await {
+            match response {
+                Ok(client) => {
+                    *self.imp().client.borrow_mut() = Some(Arc::new(Mutex::new(client)));
+                    info!("Connected to {}", url);
+                    self.imp().connection_bar.add_recent_url(&url);
+                    return true;
+                }
+                Err(e) => {
+                    let details = i18n("Failed to connect to {}: {}", &[&url, &e.to_string()]);
+                    let dialog = gtk::AlertDialog::builder()
+                        .modal(true)
+                        .message(&gettext("Connection failed"))
+                        .detail(&details)
+                        .buttons([glib::GString::from(gettext("Ok"))])
+                        .build();
+                    dialog.show(Some(&*self));
+                    error!("Failed to connect to {}: {}", &url, &e.to_string());
+                    return false;
+                }
+            }
+        }
+        false
+    }
+
     pub async fn toggle_connection(&self) {
-        if let Some(client) = self.client() {
-            let is_connected = client.lock().await.connected();
-            let connection_bar = &self.imp().connection_bar;
-            let url = connection_bar.get_url();
+        let connection_bar = &self.imp().connection_bar;
+        let url = connection_bar.get_url();
+        let connected = if self.imp().client.borrow_mut().is_some() {
+            *self.imp().client.borrow_mut() = None;
+            info!("Disconnected from {url}");
+            false
+        } else {
             if url.is_empty() || !url.starts_with("http://") {
                 return;
             }
-            let url = Arc::new(url);
-            let (sender, receiver) = async_channel::bounded::<Result<(), client::Error>>(1);
-            client::runtime().spawn(clone!(
-                #[weak]
-                url,
-                #[weak]
-                client,
-                async move {
-                    let client = client.lock().await;
-                    let result = if is_connected {
-                        client.disconnect().await
-                    } else {
-                        client.connect(&url).await
-                    };
-                    sender
-                        .send(result)
-                        .await
-                        .expect("The channel needs to be open")
-                }
-            ));
-            while let Ok(response) = receiver.recv().await {
-                match response {
-                    Err(e) => {
-                        let (message, details) = if is_connected {
-                            ("Disconnection failed", "Failed to disconnect from {}: {}")
-                        } else {
-                            ("Connection failed", "Failed to connect to {}: {}")
-                        };
-                        let details = i18n(details, &[&url, &e.to_string()]);
-                        let dialog = gtk::AlertDialog::builder()
-                            .modal(true)
-                            .message(&gettext(message))
-                            .detail(&details)
-                            .buttons([glib::GString::from(gettext("Ok"))])
-                            .build();
-                        dialog.show(Some(&*self));
-                        error!(details);
-                    }
-                    Ok(_) if is_connected => {
-                        info!("Disconnected")
-                    }
-                    Ok(_) if !is_connected => {
-                        info!("Connected to {}", url);
-                        self.imp().connection_bar.add_recent_url(&url);
-                    }
-                    _ => unreachable!(),
-                }
-            }
-            self.enable_connection(!client.lock().await.connected());
-        }
+            self.create_connection(url).await
+        };
+        self.enable_connection(!connected);
+        self.setup_pages();
     }
 }

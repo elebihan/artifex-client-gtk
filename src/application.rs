@@ -7,15 +7,12 @@
 //
 
 use gettextrs::gettext;
-use std::sync::Arc;
-use tokio::sync::Mutex;
 use tracing::{debug, info};
 
 use adw::prelude::*;
 use adw::subclass::prelude::*;
 use gtk::{gdk, gio, glib};
 
-use crate::client::Client;
 use crate::config::{APP_ID, PKGDATADIR, PROFILE, VERSION};
 use crate::window::Window;
 
@@ -27,7 +24,6 @@ mod imp {
     #[derive(Debug, Default)]
     pub struct Application {
         pub window: OnceCell<WeakRef<Window>>,
-        pub client: Arc<Mutex<Client>>,
     }
 
     #[glib::object_subclass]
@@ -144,10 +140,6 @@ impl Application {
         info!("Datadir: {}", PKGDATADIR);
 
         ApplicationExtManual::run(self)
-    }
-
-    pub fn client(&self) -> Arc<Mutex<Client>> {
-        self.imp().client.clone()
     }
 }
 
