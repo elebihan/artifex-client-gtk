@@ -11,8 +11,9 @@ use gtk::{glib, prelude::*};
 use std::cell::RefCell;
 use std::sync::Arc;
 use tokio::sync::Mutex;
+use tonic::transport::Channel;
 
-use crate::client::Client;
+use crate::client::ArtifexClient;
 
 mod imp {
     use super::*;
@@ -26,7 +27,7 @@ mod imp {
         pub window_title: TemplateChild<adw::WindowTitle>,
         #[template_child]
         pub container: TemplateChild<gtk::Box>,
-        pub client: RefCell<Option<Arc<Mutex<Client>>>>,
+        pub client: RefCell<Option<Arc<Mutex<ArtifexClient<Channel>>>>>,
     }
 
     #[glib::object_subclass]
@@ -83,7 +84,7 @@ impl OperationPage {
     pub fn get_header_bar(&self) -> adw::HeaderBar {
         self.imp().header_bar.get()
     }
-    pub fn set_client(&self, client: Option<Arc<Mutex<Client>>>) {
+    pub fn set_client(&self, client: Option<Arc<Mutex<ArtifexClient<Channel>>>>) {
         *self.imp().client.borrow_mut() = client;
     }
     pub fn set_busy(&self, busy: bool) {

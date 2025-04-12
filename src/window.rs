@@ -17,10 +17,11 @@ use std::cell::RefCell;
 use std::ops::Deref;
 use std::sync::Arc;
 use tokio::sync::Mutex;
+use tonic::transport::Channel;
 use tracing::{debug, error, info, warn};
 
 use crate::application::Application;
-use crate::client::{self, Client};
+use crate::client::{self, ArtifexClient};
 use crate::config::{APP_ID, PROFILE};
 use crate::i18n::i18n;
 use crate::widgets::{
@@ -46,7 +47,7 @@ mod imp {
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
         pub settings: gio::Settings,
-        pub client: RefCell<Option<Arc<Mutex<Client>>>>,
+        pub client: RefCell<Option<Arc<Mutex<ArtifexClient<Channel>>>>>,
     }
 
     impl Default for Window {
@@ -215,20 +216,17 @@ impl Window {
         imp.operations_list.set_sensitive(!enabled);
     }
 
-    async fn create_connection(&self, url: String) -> bool {
-        let url = Arc::new(url);
-        let (sender, receiver) = async_channel::bounded::<Result<Client, client::Error>>(1);
-        client::runtime().spawn(clone!(
-            #[weak]
-            url,
-            async move {
-                let result = Client::connect(&url).await;
-                sender
-                    .send(result)
-                    .await
-                    .expect("The channel needs to be open")
-            }
-        ));
+    async fn create_connection(&self, url: &str) -> bool {
+        let endpoint = url.to_string();
+        let (sender, receiver) =
+            async_channel::bounded::<Result<ArtifexClient<Channel>, tonic::transport::Error>>(1);
+        client::runtime().spawn(async move {
+            let result = ArtifexClient::connect(endpoint).await;
+            sender
+                .send(result)
+                .await
+                .expect("The channel needs to be open")
+        });
         while let Ok(response) = receiver.recv().await {
             match response {
                 Ok(client) => {
@@ -265,7 +263,7 @@ impl Window {
             if url.is_empty() || !url.starts_with("http://") {
                 return;
             }
-            self.create_connection(url).await
+            self.create_connection(&url).await
         };
         self.enable_connection(!connected);
         self.setup_pages();

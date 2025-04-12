@@ -7,12 +7,17 @@
 //
 
 use adw::{prelude::*, subclass::prelude::*};
+use artifex_rpc::{InspectReply, InspectRequest};
 use gettextrs::gettext;
 use gtk::glib;
+use humantime::format_duration;
+use std::time::Duration;
 use tracing::debug;
 
-use crate::client;
-use crate::widgets::{OperationPage, OperationPageImpl};
+use crate::{
+    client,
+    widgets::{OperationPage, OperationPageImpl},
+};
 
 mod imp {
     use super::*;
@@ -85,24 +90,25 @@ impl InspectionPage {
         if let Some(client) = client.clone() {
             self.set_busy(true);
             let (sender, receiver) =
-                async_channel::bounded::<Result<client::InspectReply, client::Error>>(1);
+                async_channel::bounded::<Result<tonic::Response<InspectReply>, tonic::Status>>(1);
             client::runtime().spawn(async move {
-                let client = client.lock().await;
-                let result = client.inspect().await;
+                let mut client = client.lock().await;
+                let result = client.inspect(InspectRequest {}).await;
                 sender
                     .send(result)
                     .await
                     .expect("The channel needs to be open")
             });
-            while let Ok(response) = receiver.recv().await {
-                match response {
-                    Ok(reply) => {
+            while let Ok(result) = receiver.recv().await {
+                match result {
+                    Ok(response) => {
+                        let reply = response.into_inner();
                         self.imp()
                             .kernel_version_row
                             .set_subtitle(&reply.kernel_version);
-                        self.imp()
-                            .system_uptime_row
-                            .set_subtitle(&reply.system_uptime);
+                        self.imp().system_uptime_row.set_subtitle(
+                            &format_duration(Duration::from_secs(reply.system_uptime)).to_string(),
+                        );
                     }
                     Err(_) => {}
                 }

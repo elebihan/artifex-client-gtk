@@ -53,6 +53,20 @@
       ]
     },
     {
+      "name": "protobuf",
+      "buildsystem": "autotools",
+      "config-opts": [
+        "--enable-shared"
+      ],
+        "sources": [
+          {
+            "type": "git",
+            "url": "https://github.com/protocolbuffers/protobuf.git",
+            "tag": "v3.19.6"
+          }
+        ]
+    },
+    {
       "name": "artifex-client-gtk",
       "buildsystem": "meson",
       "run-tests": true,
