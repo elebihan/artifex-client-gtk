@@ -15,15 +15,17 @@ template $OperationPage : Adw.Bin {
     Adw.HeaderBar header_bar {
       title-widget: Adw.WindowTitle window_title {};
     }
-    content: Gtk.Box {
-      orientation: vertical;
-      Gtk.ScrolledWindow {
-        hscrollbar-policy: never;
-        vexpand: true;
-        Gtk.Box container {
-          hexpand: true;
-          spacing: 12;
-          orientation: vertical;
+    content: Adw.ToastOverlay toast_overlay {
+      Gtk.Box {
+        orientation: vertical;
+        Gtk.ScrolledWindow {
+          hscrollbar-policy: never;
+          vexpand: true;
+          Gtk.Box container {
+            hexpand: true;
+            spacing: 12;
+            orientation: vertical;
+          }
         }
       }
     };

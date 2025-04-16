@@ -9,6 +9,7 @@
 blueprints = custom_target(
   'blueprints',
   input: files(
+    'batch_execution_page.blp',
     'connection_bar.blp',
     'connection_status_page.blp',
     'inspection_page.blp',

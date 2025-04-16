@@ -65,6 +65,20 @@
                    page-name: "inspection";
                    tooltip-text: _("Inspect the device");
                  }
+                 Gtk.ListBoxRow {
+                   activatable: false;
+                   selectable: false;
+                   Gtk.Label {
+                     label: _("Batch");
+                     halign: start;
+                     styles [ "heading"]
+                   }
+                 }
+                 $OperationsRow {
+                   title: _("Execution");
+                   page-name: "batch_execution";
+                   tooltip-text: _("Execute a batch");
+                 }
                  styles ["navigation-sidebar"]
                }
              }
@@ -82,6 +96,10 @@
          Gtk.StackPage {
            name: "inspection";
            child: $InspectionPage inspection_page {};
+         }
+         Gtk.StackPage {
+           name: "batch_execution";
+           child: $BatchExecutionPage batch_execution_page {};
          }
        }
      };

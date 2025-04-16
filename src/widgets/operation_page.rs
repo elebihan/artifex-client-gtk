@@ -6,8 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-use adw::subclass::prelude::*;
-use gtk::{glib, prelude::*};
+use adw::{prelude::*, subclass::prelude::*};
+use gtk::glib;
 use std::cell::RefCell;
 use std::sync::Arc;
 use tokio::sync::Mutex;
@@ -25,6 +25,8 @@ mod imp {
         pub header_bar: TemplateChild<adw::HeaderBar>,
         #[template_child]
         pub window_title: TemplateChild<adw::WindowTitle>,
+        #[template_child]
+        pub toast_overlay: TemplateChild<adw::ToastOverlay>,
         #[template_child]
         pub container: TemplateChild<gtk::Box>,
         pub client: RefCell<Option<Arc<Mutex<ArtifexClient<Channel>>>>>,
@@ -89,5 +91,13 @@ impl OperationPage {
     }
     pub fn set_busy(&self, busy: bool) {
         self.imp().container.set_sensitive(!busy);
+    }
+    pub fn show_error(&self, heading: &str, details: &str) {
+        let dialog = adw::AlertDialog::builder()
+            .heading(heading)
+            .body(details)
+            .build();
+        dialog.add_response("close", "Close");
+        dialog.present(self.root().and_downcast_ref::<gtk::Window>());
     }
 }

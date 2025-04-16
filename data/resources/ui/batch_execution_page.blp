@@ -1,0 +1,78 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $BatchExecutionPage : $OperationPage {
+  Adw.Bin {
+    margin-top: 18;
+    margin-bottom: 18;
+    margin-start: 18;
+    margin-end: 18;
+    Gtk.Paned {
+      orientation: vertical;
+      [start]
+      Gtk.ScrolledWindow {
+        vexpand: true;
+        height-request: 200;
+        Gtk.TextView input_text_view {
+          editable: false;
+          monospace: true;
+          cursor-visible: false;
+        }
+      }
+      [end]
+      Gtk.Box output_view {
+        orientation: vertical;
+        Gtk.Box {
+          margin-bottom: 12;
+          margin-top: 12;
+          hexpand: true;
+          [start]
+          Gtk.Label output_label {
+            label: _("Output");
+            xalign: 0;
+            hexpand: true;
+            styles ["heading"]
+          }
+          [end]
+          Gtk.Button output_copy_button {
+            icon-name: "edit-copy";
+            action-name: "batch-execution-page.copy-output";
+            tooltip-text: _("Copy output ");
+          }
+        }
+        Gtk.ScrolledWindow {
+          vexpand: true;
+          Gtk.TextView output_text_view {
+            editable: false;
+            monospace: true;
+            cursor-visible: false;
+          }
+        }
+      }
+    }
+    ShortcutController {
+      scope: managed;
+      propagation-phase: capture;
+      Shortcut {
+        trigger: "<Control>o";
+        action: "action(batch-execution-page.open-batch)";
+      }
+      Shortcut {
+        trigger: "<Control>x";
+        action: "action(batch-execution-page.exec-batch)";
+      }
+      Shortcut {
+        trigger: "<Control>c";
+        action: "action(batch-execution-page.copy-output)";
+      }
+    }
+  }
+}

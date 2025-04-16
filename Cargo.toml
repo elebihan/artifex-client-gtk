@@ -14,7 +14,8 @@ lto = true
 
 [dependencies]
 adw = { package = "libadwaita", version = "0.7", features = ["v1_6"] }
-artifex-rpc = { version = "0.1.1", git = "https://github.com/elebihan/artifex", rev = "98a822f"}
+artifex-rpc = { version = "0.1.1", git = "https://github.com/elebihan/artifex", rev = "16267f8"}
+artifex-batch = { version = "0.1.1", git = "https://github.com/elebihan/artifex", rev = "16267f8"}
 async-channel = "2.3.1"
 gettext-rs = { version = "0.7", features = ["gettext-system"] }
 gtk = { version = "0.9", package = "gtk4", features = ["v4_12", "blueprint"] }
