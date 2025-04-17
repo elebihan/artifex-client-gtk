@@ -119,10 +119,10 @@ impl BatchExecutionPage {
     async fn open_batch(&self) {
         let filter = gtk::FileFilter::new();
         filter.add_pattern("*.txt");
-        filter.set_name(Some("Batch files"));
+        filter.set_name(Some(&gettext("Batch files")));
         let dialog = gtk::FileDialog::builder()
             .modal(true)
-            .title("Select batch file")
+            .title(&gettext("Select batch file"))
             .default_filter(&filter)
             .build();
         match dialog
@@ -140,12 +140,12 @@ impl BatchExecutionPage {
     }
 
     fn load_batch(&self, file: gio::File) {
-        match file.path().ok_or_else(|| "Invalid file".to_string()) {
+        match file.path().ok_or_else(|| gettext("Invalid file")) {
             Ok(path) => {
                 match path
                     .file_name()
                     .and_then(|n| n.to_str())
-                    .ok_or_else(|| "Invalid file name")
+                    .ok_or_else(|| gettext("Invalid file name"))
                 {
                     Ok(file_name) => {
                         self.upcast_ref::<OperationPage>()
@@ -161,17 +161,17 @@ impl BatchExecutionPage {
                             }
                             Err(e) => self
                                 .upcast_ref::<OperationPage>()
-                                .show_error("Failed to read file", &e.to_string()),
+                                .show_error(&gettext("Failed to read file"), &e.to_string()),
                         }
                     }
                     Err(e) => self
                         .upcast_ref::<OperationPage>()
-                        .show_error("Failed to load batch", &e.to_string()),
+                        .show_error(&gettext("Failed to load batch"), &e.to_string()),
                 }
             }
             Err(e) => self
                 .upcast_ref::<OperationPage>()
-                .show_error("Failed to load batch", &e.to_string()),
+                .show_error(&gettext("Failed to load batch"), &e.to_string()),
         }
     }
 
@@ -202,7 +202,7 @@ impl BatchExecutionPage {
             Ok(batch) => self.run_batch(batch).await,
             Err(e) => self
                 .upcast_ref::<OperationPage>()
-                .show_error("Invalid batch", &e.to_string()),
+                .show_error(&gettext("Invalid batch"), &e.to_string()),
         }
     }
 
@@ -234,12 +234,12 @@ impl BatchExecutionPage {
                             Ok(text) => self.imp().output_text_view.buffer().set_text(&text),
                             Err(e) => self
                                 .upcast_ref::<OperationPage>()
-                                .show_error("Failed to render report", &e.to_string()),
+                                .show_error(&gettext("Failed to render report"), &e.to_string()),
                         }
                     }
                     Err(e) => self
                         .upcast_ref::<OperationPage>()
-                        .show_error("Failed to run batch", &e.to_string()),
+                        .show_error(&gettext("Failed to run batch"), &e.to_string()),
                 }
             }
             self.set_busy(false);
@@ -252,7 +252,9 @@ impl BatchExecutionPage {
         let buffer = self.imp().output_text_view.buffer();
         let text = buffer.text(&buffer.start_iter(), &buffer.end_iter(), false);
         clipboard.set_text(&text);
-        let toast = adw::Toast::builder().title("Batch output copied").build();
+        let toast = adw::Toast::builder()
+            .title(&gettext("Batch output copied"))
+            .build();
         self.upcast_ref::<OperationPage>()
             .imp()
             .toast_overlay

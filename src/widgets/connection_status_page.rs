@@ -56,14 +56,14 @@ mod imp {
             let (icon_name, title, description) = if successful {
                 (
                     "face-smile-symbolic",
-                    "Connected",
-                    "Connection to server established.",
+                    &gettext("Connected"),
+                    &gettext("Connection to server established."),
                 )
             } else {
                 (
                     "face-sad-symbolic",
-                    "Not connected",
-                    "Enter server address and press \"Connect\".",
+                    &gettext("Not connected"),
+                    &gettext("Enter server address and press \"Connect\"."),
                 )
             };
             self.status_page.set_icon_name(Some(icon_name));
