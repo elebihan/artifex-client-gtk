@@ -3,3 +3,4 @@ target/
 _build/
 _flatpak/
 .flatpak-builder/
+po/*.pot
