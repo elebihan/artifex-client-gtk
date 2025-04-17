@@ -15,6 +15,7 @@ mod config {
 mod application;
 mod client;
 mod i18n;
+mod pages;
 mod widgets;
 mod window;
 

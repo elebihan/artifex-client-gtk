@@ -24,10 +24,8 @@ use crate::application::Application;
 use crate::client::{self, ArtifexClient};
 use crate::config::{APP_ID, PROFILE};
 use crate::i18n::i18n;
-use crate::widgets::{
-    BatchExecutionPage, ConnectionBar, ConnectionStatusPage, InspectionPage, OperationPage,
-    OperationsRow,
-};
+use crate::pages::{BatchExecutionPage, InspectionPage};
+use crate::widgets::{ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow};
 
 mod imp {
 
