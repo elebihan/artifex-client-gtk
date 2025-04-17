@@ -1,7 +1,9 @@
-src/actions.rs
-src/app.rs
-src/header_bar.rs
+src/application.rs
 src/main.rs
-src/resources.rs
-
-data/gtk/menus.ui
+src/widgets/batch_execution_page.rs
+src/widgets/connection_bar.rs
+src/widgets/connection_status_page.rs
+src/widgets/inspection_page.rs
+src/widgets/operation_page.rs
+src/widgets/operations_row.rs
+src/window.rs
