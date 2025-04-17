@@ -70,6 +70,7 @@ dependencies = [
  "artifex-batch",
  "artifex-rpc",
  "async-channel",
+ "chrono",
  "gettext-rs",
  "gtk4",
  "humantime",

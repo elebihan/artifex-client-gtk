@@ -1,0 +1,20 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+
+template $CommandsView : Gtk.Box {
+  orientation: vertical;
+  vexpand: true;
+  Gtk.ScrolledWindow {
+    vexpand: true;
+    Gtk.ListView list_view {
+        single-click-activate: false;
+    }
+  }
+}
