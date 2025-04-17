@@ -26,6 +26,18 @@ template $ConnectionBar : Adw.Bin {
       tooltip-text: _("Toggle connection to server");
       styles ["suggested-action"]
     }
+    Gtk.Popover url_popover {
+        position: bottom;
+        Gtk.Label url_popover_label {
+          halign: center;
+          margin-bottom: 6;
+          margin-end: 6;
+          margin-start: 6;
+          margin-top: 6;
+          valign: center;
+          wrap: true;
+        }
+      }
     styles ["toolbar"]
   }
 }

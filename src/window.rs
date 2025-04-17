@@ -270,6 +270,9 @@ impl Window {
             false
         } else {
             if url.is_empty() || !url.starts_with("http://") {
+                self.imp()
+                    .connection_bar
+                    .show_popover("Please enter a valid URL");
                 return;
             }
             self.create_connection(&url).await

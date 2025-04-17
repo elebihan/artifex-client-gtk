@@ -26,6 +26,10 @@ mod imp {
         #[template_child]
         pub connect_button: TemplateChild<gtk::Button>,
         pub url_cache: gtk::ListStore,
+        #[template_child]
+        pub url_popover: TemplateChild<gtk::Popover>,
+        #[template_child]
+        pub url_popover_label: TemplateChild<gtk::Label>,
     }
 
     impl Default for ConnectionBar {
@@ -34,6 +38,8 @@ mod imp {
                 url_entry: TemplateChild::default(),
                 connect_button: TemplateChild::default(),
                 url_cache: gtk::ListStore::new(&[glib::Type::STRING]),
+                url_popover: TemplateChild::default(),
+                url_popover_label: TemplateChild::default(),
             }
         }
     }
@@ -130,5 +136,10 @@ impl ConnectionBar {
         if !exists {
             store.set(&store.append(), &[(0, &url)]);
         }
+    }
+    /// Show URL popover to display `message`.
+    pub fn show_popover(&self, message: &str) {
+        self.imp().url_popover.popup();
+        self.imp().url_popover_label.set_text(message);
     }
 }
