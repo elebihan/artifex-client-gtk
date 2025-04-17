@@ -19,10 +19,15 @@ meson devenv -C _build
 
 ## Translation
 
+Translating requires the following tools:
+
+- [xtr](https://crates.io/crates/xtr)
+- [gettext-tools](https://www.gnu.org/software/gettext/)
+
 To generate the template:
 
 ```sh
-xtr src/*.rs -o po/code.pot
+find src -name '*.rs' -exec xtr -o po/code.pot
 xgettext --from-code=UTF-8 _build/data/resources/ui/*.ui data/resources/ui/*.ui -o po/ui.pot
 msgcat po/code.pot po/ui.pot > po/artifex-client-gtk.pot
 ```
