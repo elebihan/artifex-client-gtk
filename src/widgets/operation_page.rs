@@ -7,6 +7,7 @@
 //
 
 use adw::{prelude::*, subclass::prelude::*};
+use gettextrs::gettext;
 use gtk::glib;
 use std::cell::RefCell;
 use std::sync::Arc;
@@ -97,7 +98,7 @@ impl OperationPage {
             .heading(heading)
             .body(details)
             .build();
-        dialog.add_response("close", "Close");
+        dialog.add_response("close", &gettext("Close"));
         dialog.present(self.root().and_downcast_ref::<gtk::Window>());
     }
 }
