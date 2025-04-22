@@ -5,10 +5,9 @@
 #
 msgid ""
 msgstr ""
-"#-#-#-#-#  code.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: artifex-client-gtk 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-17 09:46+0000\n"
+"POT-Creation-Date: 2025-04-22 20:18+0000\n"
 "PO-Revision-Date: 2025-04-17 11:47+0200\n"
 "Last-Translator: Éric Le Bihan <eric.le.bihan.dev@free.fr>\n"
 "Language-Team: French\n"
@@ -16,64 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"#-#-#-#-#  code.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: src/application.rs:128
-msgid "translator-credits"
-msgstr ""
-
-#: src/widgets/batch_execution_page.rs:81
-msgid "Batch Execution"
-msgstr "Exécution de batch"
-
-#: src/widgets/batch_execution_page.rs:84
-msgid "Open batch file"
-msgstr "Ouvrir un ficher batch"
-
-#: src/widgets/batch_execution_page.rs:93
-msgid "Execute batch"
-msgstr "Exécuter le batch"
-
-#: src/widgets/batch_execution_page.rs:122
-msgid "Batch files"
-msgstr "Fichiers batch"
-
-#: src/widgets/batch_execution_page.rs:125
-msgid "Select batch file"
-msgstr "Sélectionner un fichier batch"
-
-#: src/widgets/batch_execution_page.rs:143
-msgid "Invalid file"
-msgstr "Fichier invalide"
-
-#: src/widgets/batch_execution_page.rs:148
-msgid "Invalid file name"
-msgstr "Nom de fichier invalide"
-
-#: src/widgets/batch_execution_page.rs:164
-msgid "Failed to read file"
-msgstr "Impossible de lire le fichier"
-
-#: src/widgets/batch_execution_page.rs:169
-#: src/widgets/batch_execution_page.rs:174
-msgid "Failed to load batch"
-msgstr "Impossible de charger le batch"
-
-#: src/widgets/batch_execution_page.rs:205
-msgid "Invalid batch"
-msgstr "Batch invalide"
-
-#: src/widgets/batch_execution_page.rs:237
-msgid "Failed to render report"
-msgstr "Impossible de générer le rapport"
-
-#: src/widgets/batch_execution_page.rs:242
-msgid "Failed to run batch"
-msgstr "Impossible de lancer le batch"
-
-#: src/widgets/batch_execution_page.rs:256
-msgid "Batch output copied"
-msgstr "Sortie du batch copiée"
 
 #: src/widgets/connection_status_page.rs:59
 msgid "Connected"
@@ -91,27 +34,100 @@ msgstr "Non connecté"
 msgid "Enter server address and press \"Connect\"."
 msgstr "Entrez l'adresse du serveur et pressez \"Connexion\""
 
-#: src/widgets/inspection_page.rs:61 _build/data/resources/ui/window.ui:75
-msgid "Inspection"
-msgstr "Inspection"
-
-#: src/widgets/inspection_page.rs:64
-msgid "Refresh information"
-msgstr "Rafraîchir les informations"
-
 #: src/widgets/operation_page.rs:101
 msgid "Close"
 msgstr "Fermer"
 
-#: src/window.rs:251
+#: src/widgets/inspection_page.rs:61 src/pages/inspection_page.rs:61
+#: _build/data/resources/ui/window.ui:75
+msgid "Inspection"
+msgstr "Inspection"
+
+#: src/widgets/inspection_page.rs:64 src/pages/inspection_page.rs:64
+msgid "Refresh information"
+msgstr "Rafraîchir les informations"
+
+#: src/widgets/batch_execution_page.rs:81 src/pages/batch_execution_page.rs:81
+msgid "Batch Execution"
+msgstr "Exécution de batch"
+
+#: src/widgets/batch_execution_page.rs:84 src/pages/batch_execution_page.rs:84
+msgid "Open batch file"
+msgstr "Ouvrir un ficher batch"
+
+#: src/widgets/batch_execution_page.rs:93 src/pages/batch_execution_page.rs:93
+msgid "Execute batch"
+msgstr "Exécuter le batch"
+
+#: src/widgets/batch_execution_page.rs:122
+#: src/pages/batch_execution_page.rs:122
+msgid "Batch files"
+msgstr "Fichiers batch"
+
+#: src/widgets/batch_execution_page.rs:125
+#: src/pages/batch_execution_page.rs:125
+msgid "Select batch file"
+msgstr "Sélectionner un fichier batch"
+
+#: src/widgets/batch_execution_page.rs:143
+#: src/pages/batch_execution_page.rs:143
+msgid "Invalid file"
+msgstr "Fichier invalide"
+
+#: src/widgets/batch_execution_page.rs:148
+#: src/pages/batch_execution_page.rs:148
+msgid "Invalid file name"
+msgstr "Nom de fichier invalide"
+
+#: src/widgets/batch_execution_page.rs:164
+#: src/pages/batch_execution_page.rs:164
+msgid "Failed to read file"
+msgstr "Impossible de lire le fichier"
+
+#: src/widgets/batch_execution_page.rs:169
+#: src/widgets/batch_execution_page.rs:174
+#: src/pages/batch_execution_page.rs:169 src/pages/batch_execution_page.rs:174
+msgid "Failed to load batch"
+msgstr "Impossible de charger le batch"
+
+#: src/widgets/batch_execution_page.rs:205
+#: src/pages/batch_execution_page.rs:205
+msgid "Invalid batch"
+msgstr "Batch invalide"
+
+#: src/widgets/batch_execution_page.rs:237
+#: src/pages/batch_execution_page.rs:237
+msgid "Failed to render report"
+msgstr "Impossible de générer le rapport"
+
+#: src/widgets/batch_execution_page.rs:242
+#: src/pages/batch_execution_page.rs:242
+msgid "Failed to run batch"
+msgstr "Impossible de lancer le batch"
+
+#: src/widgets/batch_execution_page.rs:256
+#: src/pages/batch_execution_page.rs:256
+msgid "Batch output copied"
+msgstr "Sortie du batch copiée"
+
+#: src/application.rs:128
+msgid "translator-credits"
+msgstr ""
+
+#: src/pages/execution/execution_page.rs:65
+#: _build/data/resources/ui/window.ui:82 _build/data/resources/ui/window.ui:104
+msgid "Execution"
+msgstr "Exécution"
+
+#: src/window.rs:256
 msgid "Connection failed"
 msgstr "La connexion a échouée"
 
-#: src/window.rs:253
+#: src/window.rs:258
 msgid "Ok"
 msgstr "Ok"
 
-#: src/window.rs:275
+#: src/window.rs:280
 msgid "Please enter a valid URL"
 msgstr "Veuillez entrer une URL valide"
 
@@ -122,6 +138,18 @@ msgstr "Sortie"
 #: _build/data/resources/ui/batch_execution_page.ui:54
 msgid "Copy output "
 msgstr "Copier la sortie"
+
+#: _build/data/resources/ui/command_bar.ui:16
+msgid "Command to execute"
+msgstr "Commande à exécuter"
+
+#: _build/data/resources/ui/command_bar.ui:17
+msgid "Enter a command"
+msgstr "Entrez une commande"
+
+#: _build/data/resources/ui/command_bar.ui:25
+msgid "Execute command"
+msgstr "Exécuter la commande"
 
 #: _build/data/resources/ui/connection_bar.ui:16
 msgid "URL of the server"
@@ -159,23 +187,23 @@ msgstr "Système"
 msgid "Inspect the device"
 msgstr "Inspecter l'appareil"
 
-#: _build/data/resources/ui/window.ui:86
+#: _build/data/resources/ui/window.ui:84
+msgid "Execute a command on the device"
+msgstr "Exécuter une commande sur l'appareil"
+
+#: _build/data/resources/ui/window.ui:93
 msgid "Batch"
 msgstr "Batch"
 
-#: _build/data/resources/ui/window.ui:97
-msgid "Execution"
-msgstr "Exécution"
-
-#: _build/data/resources/ui/window.ui:99
+#: _build/data/resources/ui/window.ui:106
 msgid "Execute a batch"
 msgstr "Exécuter un batch"
 
-#: _build/data/resources/ui/window.ui:155
+#: _build/data/resources/ui/window.ui:170
 msgid "About artifex-client-gtk"
 msgstr "À propos d'artifex-client-gtk"
 
-#: _build/data/resources/ui/window.ui:159
+#: _build/data/resources/ui/window.ui:174
 msgid "Show shortcuts"
 msgstr "Afficher les raccourcis"
 
@@ -216,20 +244,30 @@ msgstr "Rafraîchir les informations"
 
 #: data/resources/ui/shortcuts.ui:49
 msgctxt "shortcut window"
+msgid "System Execution"
+msgstr "Exécution sur le système"
+
+#: data/resources/ui/shortcuts.ui:52
+msgctxt "shortcut window"
+msgid "Execute command"
+msgstr "Exécuter une commande"
+
+#: data/resources/ui/shortcuts.ui:60
+msgctxt "shortcut window"
 msgid "Batch Execution"
 msgstr "Exécution de batch"
 
-#: data/resources/ui/shortcuts.ui:52
+#: data/resources/ui/shortcuts.ui:63
 msgctxt "shortcut window"
 msgid "Open batch"
 msgstr "Ouvrir un batch"
 
-#: data/resources/ui/shortcuts.ui:58
+#: data/resources/ui/shortcuts.ui:69
 msgctxt "shortcut window"
 msgid "Execute batch"
 msgstr "Exécuter un batch"
 
-#: data/resources/ui/shortcuts.ui:64
+#: data/resources/ui/shortcuts.ui:75
 msgctxt "shortcut window"
 msgid "Copy output"
 msgstr "Copier la sortie"
