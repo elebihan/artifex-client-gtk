@@ -27,7 +27,7 @@ Translating requires the following tools:
 To generate the template:
 
 ```sh
-find src -name '*.rs' -exec xtr -o po/code.pot
+find src -name '*.rs' -exec xtr -o po/code.pot {} +
 xgettext --from-code=UTF-8 _build/data/resources/ui/*.ui data/resources/ui/*.ui -o po/ui.pot
 msgcat po/code.pot po/ui.pot > po/artifex-client-gtk.pot
 ```
