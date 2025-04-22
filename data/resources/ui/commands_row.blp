@@ -1,0 +1,49 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $CommandsRow : Gtk.ListBoxRow {
+  can-focus: false;
+  child: Gtk.Box {
+    orientation: vertical;
+    spacing: 12;
+    margin-bottom: 12;
+    margin-top: 12;
+    margin-start: 6;
+    margin-end: 6;
+    Gtk.Box {
+      spacing: 6;
+      [start]
+      Gtk.Label timestamp_label {}
+      [end]
+      Gtk.Stack status_stack {
+        Gtk.StackPage {
+          name: "status-ko";
+          child: Gtk.Image status_ko_img {
+            icon-name: "process-stop-symbolic";
+          };
+        }
+        Gtk.StackPage {
+          name: "status-ok";
+          child: Gtk.Image status_ok_img {
+            icon-name: "checkmark-symbolic";
+          };
+        }
+        Gtk.StackPage {
+          name: "status-running";
+          child: Adw.Spinner status_run_spinner {};
+        }
+      }
+    }
+    Gtk.Label text_label {
+      xalign: 0;
+    }
+  };
+}

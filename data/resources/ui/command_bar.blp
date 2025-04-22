@@ -1,0 +1,43 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $CommandBar : Adw.Bin {
+  Gtk.Box {
+    hexpand: true;
+    [start]
+    Gtk.Entry command_entry {
+      hexpand: true;
+      tooltip-text: _("Command to execute");
+      placeholder-text: _("Enter a command");
+    }
+    [end]
+    Gtk.Button execute_button {
+      icon-name: "send-to-symbolic";
+      action-name: "execution-page.execute-command";
+      valign: center;
+      tooltip-text: _("Execute command");
+      styles ["accent", "circular", "suggested-action"]
+    }
+    Gtk.Popover command_popover {
+      position: bottom;
+      Gtk.Label command_popover_label {
+        halign: center;
+        margin-bottom: 6;
+        margin-end: 6;
+        margin-start: 6;
+        margin-top: 6;
+        valign: center;
+        wrap: true;
+      }
+    }
+    styles ["toolbar"]
+  }
+}

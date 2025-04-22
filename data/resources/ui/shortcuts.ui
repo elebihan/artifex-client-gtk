@@ -46,6 +46,17 @@
         </child>
         <child>
           <object class="GtkShortcutsGroup">
+            <property name="title" translatable="yes" context="shortcut window">System Execution</property>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Execute command</property>
+                <property name="accelerator">&lt;Control&gt;x</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkShortcutsGroup">
             <property name="title" translatable="yes" context="shortcut window">Batch Execution</property>
             <child>
               <object class="GtkShortcutsShortcut">

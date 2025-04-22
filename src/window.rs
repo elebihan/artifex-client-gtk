@@ -24,7 +24,7 @@ use crate::application::Application;
 use crate::client::{self, ArtifexClient};
 use crate::config::{APP_ID, PROFILE};
 use crate::i18n::i18n;
-use crate::pages::{BatchExecutionPage, InspectionPage};
+use crate::pages::{BatchExecutionPage, ExecutionPage, InspectionPage};
 use crate::widgets::{ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow};
 
 mod imp {
@@ -45,6 +45,8 @@ mod imp {
         #[template_child]
         pub inspection_page: TemplateChild<InspectionPage>,
         #[template_child]
+        pub execution_page: TemplateChild<ExecutionPage>,
+        #[template_child]
         pub batch_execution_page: TemplateChild<BatchExecutionPage>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
@@ -60,6 +62,7 @@ mod imp {
                 operations_list: TemplateChild::default(),
                 connection_status_page: TemplateChild::default(),
                 inspection_page: TemplateChild::default(),
+                execution_page: TemplateChild::default(),
                 batch_execution_page: TemplateChild::default(),
                 stack: TemplateChild::default(),
                 settings: gio::Settings::new(APP_ID),
@@ -192,6 +195,10 @@ impl Window {
         if let Some(client) = self.imp().client.borrow().deref() {
             self.imp()
                 .inspection_page
+                .upcast_ref::<OperationPage>()
+                .set_client(Some(client.clone()));
+            self.imp()
+                .execution_page
                 .upcast_ref::<OperationPage>()
                 .set_client(Some(client.clone()));
             self.imp()

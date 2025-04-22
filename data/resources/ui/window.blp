@@ -65,6 +65,11 @@
                    page-name: "inspection";
                    tooltip-text: _("Inspect the device");
                  }
+                 $OperationsRow {
+                   title: _("Execution");
+                   page-name: "execution";
+                   tooltip-text: _("Execute a command on the device");
+                 }
                  Gtk.ListBoxRow {
                    activatable: false;
                    selectable: false;
@@ -96,6 +101,10 @@
          Gtk.StackPage {
            name: "inspection";
            child: $InspectionPage inspection_page {};
+         }
+         Gtk.StackPage {
+           name: "execution";
+           child: $ExecutionPage execution_page {};
          }
          Gtk.StackPage {
            name: "batch_execution";
