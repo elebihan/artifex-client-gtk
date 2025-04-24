@@ -53,6 +53,12 @@
                 <property name="accelerator">&lt;Control&gt;x</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Clear commands</property>
+                <property name="accelerator">&lt;Control&gt;Delete</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>

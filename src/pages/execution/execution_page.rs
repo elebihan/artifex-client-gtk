@@ -27,6 +27,9 @@ mod imp {
     #[derive(Debug, gtk::CompositeTemplate)]
     #[template(resource = "/com/elebihan/artifex-client-gtk/ui/execution_page.ui")]
     pub struct ExecutionPage {
+        pub menu_button: gtk::MenuButton,
+        #[template_child]
+        pub execution_menu: TemplateChild<gio::Menu>,
         #[template_child]
         pub commands_view: TemplateChild<CommandsView>,
         #[template_child]
@@ -50,6 +53,10 @@ mod imp {
                     page.execute_command().await
                 },
             );
+            klass.install_action("execution-page.clear-commands", None, move |page, _, _| {
+                debug!("execution-page.clear-commands");
+                page.clear_commands();
+            })
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
@@ -63,6 +70,14 @@ mod imp {
             self.obj()
                 .upcast_ref::<OperationPage>()
                 .set_title(&gettext("Execution"));
+            self.menu_button.set_icon_name("view-more-symbolic");
+            self.menu_button
+                .set_tooltip_text(Some(&gettext("Command execution menu")));
+            let menu_popover =
+                gtk::PopoverMenu::from_model(self.execution_menu.downcast_ref::<gio::Menu>());
+            self.menu_button.set_popover(Some(&menu_popover));
+            let header_bar = self.obj().upcast_ref::<OperationPage>().get_header_bar();
+            header_bar.pack_end(&self.menu_button);
             self.obj().setup_store();
             self.obj().setup_factory();
         }
@@ -74,6 +89,8 @@ mod imp {
     impl Default for ExecutionPage {
         fn default() -> Self {
             Self {
+                menu_button: gtk::MenuButton::new(),
+                execution_menu: TemplateChild::default(),
                 commands: gio::ListStore::new::<Command>(),
                 command_bar: gtk::TemplateChild::default(),
                 commands_view: gtk::TemplateChild::default(),
@@ -194,5 +211,9 @@ impl ExecutionPage {
         {
             command.set_status(status);
         }
+    }
+
+    fn clear_commands(&self) {
+        self.imp().commands.remove_all();
     }
 }
