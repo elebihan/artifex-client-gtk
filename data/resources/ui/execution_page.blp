@@ -31,6 +31,14 @@ template $ExecutionPage : $OperationPage {
         trigger: "<Control>x";
         action: "action(execution-page.execute-command)";
       }
+      Shortcut {
+        trigger: "<Control>Delete";
+        action: "action(execution-page.clear-commands)";
+      }
     }
   }
 }
+
+menu execution_menu {
+   item(_("Clear commands"), "execution-page.clear-commands")
+ }
