@@ -6,7 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-use gtk::{glib, subclass::prelude::*};
+use glib::clone;
+use gtk::{glib, prelude::*, subclass::prelude::*};
 
 mod imp {
     use super::*;
@@ -59,5 +60,36 @@ impl CommandsView {
 
     pub fn set_factory(&self, factory: Option<&impl glib::object::IsA<gtk::ListItemFactory>>) {
         self.imp().list_view.set_factory(factory)
+    }
+
+    pub fn scroll_to_last(&self) {
+        let model = self
+            .imp()
+            .list_view
+            .model()
+            .expect("CommandsView must have a SelectionModel");
+        let n_items = model.n_items();
+        if n_items > 0 {
+            // FIXME: This is an ugly hack.
+            // One could think of using glib::idle_add_local_once(),
+            // but as this function is called from an async function,
+            // this won't work.
+            // So use a timeout value "good enough" for small commamd
+            // output.
+            glib::timeout_add_local_once(
+                std::time::Duration::from_millis(1000),
+                clone!(
+                    #[weak(rename_to = this)]
+                    self,
+                    move || {
+                        this.imp().list_view.scroll_to(
+                            n_items - 1,
+                            gtk::ListScrollFlags::FOCUS,
+                            None,
+                        );
+                    }
+                ),
+            );
+        }
     }
 }

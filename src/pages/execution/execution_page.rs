@@ -165,7 +165,7 @@ impl ExecutionPage {
             self.set_busy(true);
             let cmd_text = self.imp().command_bar.command();
             let cmd_input = Command::new(&cmd_text);
-            self.imp().commands.append(&cmd_input);
+            self.append_command(&cmd_input);
             let (sender, receiver) =
                 async_channel::bounded::<Result<tonic::Response<ExecuteReply>, tonic::Status>>(1);
             client::runtime().spawn(async move {
@@ -189,7 +189,7 @@ impl ExecutionPage {
                             CommandStatus::Ko
                         };
                         cmd_output.set_status(status);
-                        self.imp().commands.append(&cmd_output);
+                        self.append_command(&cmd_output);
                     }
                     Err(e) => {
                         error!("Command execution failed: {}", e.to_string());
@@ -215,5 +215,10 @@ impl ExecutionPage {
 
     fn clear_commands(&self) {
         self.imp().commands.remove_all();
+    }
+
+    fn append_command(&self, command: &Command) {
+        self.imp().commands.append(command);
+        self.imp().commands_view.scroll_to_last();
     }
 }
