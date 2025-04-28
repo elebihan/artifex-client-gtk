@@ -71,6 +71,7 @@ dependencies = [
  "artifex-rpc",
  "async-channel",
  "chrono",
+ "futures-util",
  "gettext-rs",
  "gtk4",
  "humantime",

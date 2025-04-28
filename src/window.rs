@@ -24,7 +24,7 @@ use crate::application::Application;
 use crate::client::{self, ArtifexClient};
 use crate::config::{APP_ID, PROFILE};
 use crate::i18n::i18n;
-use crate::pages::{BatchExecutionPage, ExecutionPage, InspectionPage};
+use crate::pages::{BatchExecutionPage, ExecutionPage, InspectionPage, UpgradePage};
 use crate::widgets::{ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow};
 
 mod imp {
@@ -47,6 +47,8 @@ mod imp {
         #[template_child]
         pub execution_page: TemplateChild<ExecutionPage>,
         #[template_child]
+        pub upgrade_page: TemplateChild<UpgradePage>,
+        #[template_child]
         pub batch_execution_page: TemplateChild<BatchExecutionPage>,
         #[template_child]
         pub stack: TemplateChild<gtk::Stack>,
@@ -63,6 +65,7 @@ mod imp {
                 connection_status_page: TemplateChild::default(),
                 inspection_page: TemplateChild::default(),
                 execution_page: TemplateChild::default(),
+                upgrade_page: TemplateChild::default(),
                 batch_execution_page: TemplateChild::default(),
                 stack: TemplateChild::default(),
                 settings: gio::Settings::new(APP_ID),
@@ -78,6 +81,7 @@ mod imp {
         type ParentType = adw::ApplicationWindow;
 
         fn class_init(klass: &mut Self::Class) {
+            UpgradePage::ensure_type();
             klass.bind_template();
             OperationsRow::static_type();
             ConnectionBar::static_type();
@@ -199,6 +203,10 @@ impl Window {
                 .set_client(Some(client.clone()));
             self.imp()
                 .execution_page
+                .upcast_ref::<OperationPage>()
+                .set_client(Some(client.clone()));
+            self.imp()
+                .upgrade_page
                 .upcast_ref::<OperationPage>()
                 .set_client(Some(client.clone()));
             self.imp()

@@ -6,12 +6,6 @@
 // SPDX-License-Identifier: MIT
 //
 
-mod batch;
-mod execution;
-mod inspection;
-mod upgrade;
+mod upgrade_page;
 
-pub use batch::*;
-pub use execution::*;
-pub use inspection::*;
-pub use upgrade::*;
+pub use upgrade_page::UpgradePage;

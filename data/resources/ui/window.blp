@@ -70,6 +70,11 @@
                    page-name: "execution";
                    tooltip-text: _("Execute a command on the device");
                  }
+                 $OperationsRow {
+                   title: _("Upgrade");
+                   page-name: "upgrade";
+                   tooltip-text: _("Upgrade system");
+                 }
                  Gtk.ListBoxRow {
                    activatable: false;
                    selectable: false;
@@ -105,6 +110,10 @@
          Gtk.StackPage {
            name: "execution";
            child: $ExecutionPage execution_page {};
+         }
+         Gtk.StackPage {
+           name: "upgrade";
+           child: $UpgradePage upgrade_page {};
          }
          Gtk.StackPage {
            name: "batch_execution";
