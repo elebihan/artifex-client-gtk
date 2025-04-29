@@ -10,6 +10,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use artifex_rpc::{upgrade_reply::Status, UpgradeReply, UpgradeRequest};
 use futures_util::StreamExt;
 use gettextrs::gettext;
+use glib::clone;
 use gtk::glib;
 use std::cell::Cell;
 use tracing::{debug, error};
@@ -90,6 +91,27 @@ mod imp {
                 .bind_property("upgrade-state", &*self.upgrade_progress_bar, "visible")
                 .transform_to(|_, s| Some(!matches!(s, UpgradeState::Waiting)))
                 .build();
+            self.obj().connect_notify_local(
+                Some("upgrade-state"),
+                clone!(
+                    #[weak(rename_to = this)]
+                    self,
+                    move |_, _| {
+                        match this.upgrade_state.get() {
+                            UpgradeState::Failed => {
+                                this.upgrade_progress_bar.add_css_class("failure");
+                            }
+                            UpgradeState::Succeed => {
+                                this.upgrade_progress_bar.add_css_class("success");
+                            }
+                            UpgradeState::Running | UpgradeState::Waiting => {
+                                this.upgrade_progress_bar.remove_css_class("failure");
+                                this.upgrade_progress_bar.remove_css_class("success");
+                            }
+                        }
+                    }
+                ),
+            );
         }
         fn dispose(&self) {
             self.dispose_template();
