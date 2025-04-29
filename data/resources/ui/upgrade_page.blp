@@ -1,0 +1,39 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $UpgradePage : $OperationPage {
+  upgrade-state: waiting;
+  Adw.Bin {
+    margin-top: 18;
+    margin-bottom: 18;
+    margin-start: 18;
+    margin-end: 18;
+    Gtk.Box {
+      orientation: vertical;
+      spacing: 6;
+      Gtk.Label upgrade_label {
+        halign: center;
+      }
+      Gtk.ProgressBar upgrade_progress_bar {
+        show-text: true;
+      }
+    }
+    ShortcutController {
+      scope: managed;
+      propagation-phase: capture;
+
+      Shortcut {
+        trigger: "<Control>x";
+        action: "action(upgrade-page.start)";
+      }
+    }
+  }
+}

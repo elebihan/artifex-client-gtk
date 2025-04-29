@@ -1,4 +1,19 @@
+/*
+ * This file is part of artifex-client-gtk
+ *
+ * SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 .title-header{
-  font-size: 36px;
-  font-weight: bold;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+progressbar.failure  trough > progress {
+    background-color: @destructive_bg_color;
+}
+progressbar.success  trough > progress {
+    background-color: @success_bg_color;
 }

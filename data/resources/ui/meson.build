@@ -19,6 +19,7 @@ blueprints = custom_target(
     'inspection_page.blp',
     'operation_page.blp',
     'operations_row.blp',
+    'upgrade_page.blp',
     'window.blp'
   ),
   output: '.',
