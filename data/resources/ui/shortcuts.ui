@@ -59,6 +59,12 @@
                 <property name="accelerator">&lt;Control&gt;Delete</property>
               </object>
             </child>
+            <child>
+              <object class="GtkShortcutsShortcut">
+                <property name="title" translatable="yes" context="shortcut window">Search command</property>
+                <property name="accelerator">&lt;Control&gt;f</property>
+              </object>
+            </child>
           </object>
         </child>
         <child>

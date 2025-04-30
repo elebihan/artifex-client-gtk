@@ -56,7 +56,11 @@ mod imp {
             klass.install_action("execution-page.clear-commands", None, move |page, _, _| {
                 debug!("execution-page.clear-commands");
                 page.clear_commands();
-            })
+            });
+            klass.install_action("execution-page.search-command", None, move |page, _, _| {
+                debug!("execution-page.search-command");
+                page.imp().commands_view.toggle_search_bar();
+            });
         }
 
         fn instance_init(obj: &glib::subclass::InitializingObject<Self>) {
@@ -110,8 +114,28 @@ glib::wrapper! {
 
 impl ExecutionPage {
     fn setup_store(&self) {
-        let selection_model = gtk::NoSelection::new(Some(self.imp().commands.clone()));
+        let model = self.imp().commands.clone();
+        let search_entry = self.imp().commands_view.search_entry();
+        let filter = gtk::CustomFilter::new(move |item| {
+            let text = search_entry.text();
+            if text.is_empty() {
+                return true;
+            }
+            let command = item
+                .downcast_ref::<Command>()
+                .expect("Item must be a Command");
+            command.text().contains(text.as_str())
+        });
+        let filter_model = gtk::FilterListModel::builder()
+            .model(&model)
+            .filter(&filter)
+            .build();
+        let selection_model = gtk::NoSelection::new(Some(filter_model));
         self.imp().commands_view.set_model(Some(&selection_model));
+        self.imp()
+            .commands_view
+            .search_entry()
+            .connect_changed(move |_| filter.changed(gtk::FilterChange::Different));
     }
 
     fn setup_factory(&self) {

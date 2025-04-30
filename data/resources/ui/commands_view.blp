@@ -11,6 +11,12 @@ using Gtk 4.0;
 template $CommandsView : Gtk.Box {
   orientation: vertical;
   vexpand: true;
+  search-mode-enabled: bind search_bar.search-mode-enabled bidirectional;
+  Gtk.SearchBar search_bar {
+    Gtk.SearchEntry search_entry {
+      hexpand: true;
+    }
+  }
   Gtk.ScrolledWindow {
     vexpand: true;
     Gtk.ListView list_view {
