@@ -10,7 +10,7 @@ use adw::{prelude::*, subclass::prelude::*};
 use artifex_batch::{Batch, BatchReport, BatchRunner, MarkupKind, MarkupReportRenderer};
 use gettextrs::gettext;
 use gtk::{gio, glib};
-use tracing::{debug, error};
+use tracing::debug;
 
 use crate::{
     client,
@@ -133,9 +133,9 @@ impl BatchExecutionPage {
                 debug!("Opening {:?}", file.path());
                 self.load_batch(file)
             }
-            Err(e) => {
-                error!("Failed to open file: {e}")
-            }
+            Err(e) => self
+                .upcast_ref::<OperationPage>()
+                .show_error(&gettext("Failed to open file"), &e.to_string()),
         }
     }
 

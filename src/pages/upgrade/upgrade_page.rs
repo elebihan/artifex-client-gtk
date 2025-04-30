@@ -13,7 +13,7 @@ use gettextrs::gettext;
 use glib::clone;
 use gtk::glib;
 use std::cell::Cell;
-use tracing::{debug, error};
+use tracing::debug;
 
 use crate::{
     client,
@@ -178,9 +178,9 @@ impl UpgradePage {
                             }
                         }
                     }
-                    Err(e) => {
-                        error!("Upgrade grade failed: {}", e.to_string());
-                    }
+                    Err(e) => self
+                        .upcast_ref::<OperationPage>()
+                        .show_error(&gettext("Upgrade failed"), &e.to_string()),
                 }
             }
             self.set_busy(false);

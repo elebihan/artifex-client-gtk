@@ -110,7 +110,9 @@ impl InspectionPage {
                             &format_duration(Duration::from_secs(reply.system_uptime)).to_string(),
                         );
                     }
-                    Err(_) => {}
+                    Err(e) => self
+                        .upcast_ref::<OperationPage>()
+                        .show_error(&gettext("Inspection failed"), &e.to_string()),
                 }
             }
             self.set_busy(false);
