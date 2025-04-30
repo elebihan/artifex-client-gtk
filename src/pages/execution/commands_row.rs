@@ -86,17 +86,14 @@ mod imp {
             if let Some(command) = command {
                 let timestamp_binding = command
                     .bind_property("timestamp", &*self.timestamp_label, "label")
-                    .bidirectional()
                     .sync_create()
                     .build();
                 let text_binding = command
                     .bind_property("text", &*self.text_label, "label")
-                    .bidirectional()
                     .sync_create()
                     .build();
                 let status_binding = command
                     .bind_property("status", &*self.obj(), "status")
-                    .bidirectional()
                     .sync_create()
                     .build();
                 self.bindings.borrow_mut().extend([
