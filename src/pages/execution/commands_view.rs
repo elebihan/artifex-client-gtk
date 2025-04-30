@@ -8,15 +8,23 @@
 
 use glib::clone;
 use gtk::{glib, prelude::*, subclass::prelude::*};
+use std::cell::Cell;
 
 mod imp {
     use super::*;
 
-    #[derive(Debug, Default, gtk::CompositeTemplate)]
+    #[derive(Debug, Default, gtk::CompositeTemplate, glib::Properties)]
     #[template(resource = "/com/elebihan/artifex-client-gtk/ui/commands_view.ui")]
+    #[properties(wrapper_type = super::CommandsView)]
     pub struct CommandsView {
         #[template_child]
         pub list_view: TemplateChild<gtk::ListView>,
+        #[template_child]
+        pub search_bar: gtk::TemplateChild<gtk::SearchBar>,
+        #[template_child]
+        pub search_entry: gtk::TemplateChild<gtk::SearchEntry>,
+        #[property(get, set)]
+        search_mode_enabled: Cell<bool>,
     }
 
     #[glib::object_subclass]
@@ -34,6 +42,7 @@ mod imp {
         }
     }
 
+    #[glib::derived_properties]
     impl ObjectImpl for CommandsView {
         fn constructed(&self) {
             self.parent_constructed();
@@ -91,5 +100,14 @@ impl CommandsView {
                 ),
             );
         }
+    }
+
+    pub fn search_entry(&self) -> gtk::SearchEntry {
+        self.imp().search_entry.get()
+    }
+
+    pub fn toggle_search_bar(&self) {
+        let search_bar = self.imp().search_bar.get();
+        search_bar.set_search_mode(!search_bar.is_search_mode());
     }
 }

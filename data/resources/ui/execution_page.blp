@@ -28,12 +28,16 @@ template $ExecutionPage : $OperationPage {
       scope: managed;
       propagation-phase: capture;
       Shortcut {
-        trigger: "<Control>x";
+        trigger: "Return";
         action: "action(execution-page.execute-command)";
       }
       Shortcut {
         trigger: "<Control>Delete";
         action: "action(execution-page.clear-commands)";
+      }
+      Shortcut {
+        trigger: "<Control>f";
+        action: "action(execution-page.search-command)";
       }
     }
   }
@@ -41,4 +45,5 @@ template $ExecutionPage : $OperationPage {
 
 menu execution_menu {
    item(_("Clear commands"), "execution-page.clear-commands")
+   item(_("Search command"), "execution-page.search-command")
  }
