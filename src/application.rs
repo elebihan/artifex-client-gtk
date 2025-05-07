@@ -102,6 +102,7 @@ impl Application {
         self.set_accels_for_action("app.quit", &["<Control>q"]);
         self.set_accels_for_action("win.toggle-connection", &["<Control>t"]);
         self.set_accels_for_action("win.show-help-overlay", &["<primary>question"]);
+        self.set_accels_for_action("win.show-preferences", &["<primary>comma"]);
     }
 
     fn setup_css(&self) {

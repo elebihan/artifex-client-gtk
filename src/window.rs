@@ -6,9 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-use adw::subclass::prelude::*;
+use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
-use gtk::prelude::*;
 use gtk::{
     gio,
     glib::{self, clone},
@@ -25,7 +24,9 @@ use crate::client::{self, ArtifexClient};
 use crate::config::{APP_ID, PROFILE};
 use crate::i18n::i18n;
 use crate::pages::{BatchExecutionPage, ExecutionPage, InspectionPage, UpgradePage};
-use crate::widgets::{ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow};
+use crate::widgets::{
+    ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow, PreferencesDialog,
+};
 
 mod imp {
 
@@ -89,6 +90,9 @@ mod imp {
             klass.install_action_async("win.toggle-connection", None, |win, _, _| async move {
                 debug!("Window::win.toggle-connection");
                 win.toggle_connection().await
+            });
+            klass.install_action("win.show-preferences", None, move |win, _, _| {
+                PreferencesDialog::new().present(Some(win));
             });
         }
 

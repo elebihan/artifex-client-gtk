@@ -1,0 +1,31 @@
+//
+// This file is part of artifex-client-gtk
+//
+// SPDX-FileCopyrightText: Copyright © 2025 Eric Le Bihan
+//
+// SPDX-License-Identifier: MIT
+//
+
+using Gtk 4.0;
+using Adw 1;
+
+template $PreferencesDialog : Adw.PreferencesDialog {
+  Adw.PreferencesPage connection_page {
+    title: _("Connection");
+    Adw.PreferencesGroup {
+      title: _("Authentication");
+      Adw.ActionRow root_cert_row {
+        title: _("CA certificate");
+        $CertChooser root_cert_chooser {}
+      }
+      Adw.ActionRow client_cert_row {
+        title: _("Client certificate");
+        $CertChooser client_cert_chooser {}
+      }
+      Adw.ActionRow client_key_row {
+        title: _("Client private key");
+        $CertChooser client_key_chooser {}
+      }
+    }
+  }
+}

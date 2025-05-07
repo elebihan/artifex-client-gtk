@@ -19,4 +19,21 @@
       <description>This is the list of URLs to servers recently used</description>
     </key>
   </schema>
+  <schema path="/com/elebihan/artifex-client-gtk/" id="@app-id@.connection" gettext-domain="@gettext-package@">
+    <key name="auth-root-cert-uri" type="s">
+      <default>""</default>
+      <summary>Root certificate URI</summary>
+      <description>URI of the root certificate to use for connection authentication</description>
+    </key>
+    <key name="auth-client-cert-uri" type="s">
+      <default>""</default>
+      <summary>Client certificate URI</summary>
+      <description>URI of the client certificate to use for connection authentication</description>
+    </key>
+    <key name="auth-client-key-uri" type="s">
+      <default>""</default>
+      <summary>Client key URI</summary>
+      <description>URI of the client key to use for connection authentication</description>
+    </key>
+  </schema>
 </schemalist>
