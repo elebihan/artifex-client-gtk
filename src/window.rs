@@ -286,7 +286,7 @@ impl Window {
             info!("Disconnected from {url}");
             false
         } else {
-            if url.is_empty() || !url.starts_with("http://") {
+            if url.is_empty() || !(url.starts_with("https://") || url.starts_with("http://")) {
                 self.imp()
                     .connection_bar
                     .show_popover(&gettext("Please enter a valid URL"));
