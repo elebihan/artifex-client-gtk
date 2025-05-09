@@ -6,9 +6,8 @@
 // SPDX-License-Identifier: MIT
 //
 
-use adw::subclass::prelude::*;
+use adw::{prelude::*, subclass::prelude::*};
 use gettextrs::gettext;
-use gtk::prelude::*;
 use gtk::{
     gio,
     glib::{self, clone},
@@ -25,7 +24,9 @@ use crate::client::{self, ArtifexClient};
 use crate::config::{APP_ID, PROFILE};
 use crate::i18n::i18n;
 use crate::pages::{BatchExecutionPage, ExecutionPage, InspectionPage, UpgradePage};
-use crate::widgets::{ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow};
+use crate::widgets::{
+    ConnectionBar, ConnectionStatusPage, OperationPage, OperationsRow, PreferencesDialog,
+};
 
 mod imp {
 
@@ -89,6 +90,9 @@ mod imp {
             klass.install_action_async("win.toggle-connection", None, |win, _, _| async move {
                 debug!("Window::win.toggle-connection");
                 win.toggle_connection().await
+            });
+            klass.install_action("win.show-preferences", None, move |win, _, _| {
+                PreferencesDialog::new().present(Some(win));
             });
         }
 
@@ -241,9 +245,9 @@ impl Window {
     async fn create_connection(&self, url: &str) -> bool {
         let endpoint = url.to_string();
         let (sender, receiver) =
-            async_channel::bounded::<Result<ArtifexClient<Channel>, tonic::transport::Error>>(1);
+            async_channel::bounded::<Result<ArtifexClient<Channel>, client::Error>>(1);
         client::runtime().spawn(async move {
-            let result = ArtifexClient::connect(endpoint).await;
+            let result = client::connect(&endpoint).await;
             sender
                 .send(result)
                 .await
@@ -282,7 +286,7 @@ impl Window {
             info!("Disconnected from {url}");
             false
         } else {
-            if url.is_empty() || !url.starts_with("http://") {
+            if url.is_empty() || !(url.starts_with("https://") || url.starts_with("http://")) {
                 self.imp()
                     .connection_bar
                     .show_popover(&gettext("Please enter a valid URL"));

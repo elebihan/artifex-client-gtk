@@ -11,6 +11,7 @@
     <file compressed="true" preprocess="xml-stripblanks">ui/connection_status_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/execution_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/inspection_page.ui</file>
+    <file compressed="true" preprocess="xml-stripblanks">ui/preferences_dialog.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/operation_page.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/operations_row.ui</file>
     <file compressed="true" preprocess="xml-stripblanks">ui/upgrade_page.ui</file>

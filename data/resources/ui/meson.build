@@ -17,6 +17,7 @@ blueprints = custom_target(
     'connection_status_page.blp',
     'execution_page.blp',
     'inspection_page.blp',
+    'preferences_dialog.blp',
     'operation_page.blp',
     'operations_row.blp',
     'upgrade_page.blp',
