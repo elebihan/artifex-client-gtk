@@ -74,6 +74,7 @@ dependencies = [
  "futures-util",
  "gettext-rs",
  "gtk4",
+ "http 0.2.12",
  "humantime",
  "libadwaita",
  "once_cell",

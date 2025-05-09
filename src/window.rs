@@ -245,9 +245,9 @@ impl Window {
     async fn create_connection(&self, url: &str) -> bool {
         let endpoint = url.to_string();
         let (sender, receiver) =
-            async_channel::bounded::<Result<ArtifexClient<Channel>, tonic::transport::Error>>(1);
+            async_channel::bounded::<Result<ArtifexClient<Channel>, client::Error>>(1);
         client::runtime().spawn(async move {
-            let result = ArtifexClient::connect(endpoint).await;
+            let result = client::connect(&endpoint).await;
             sender
                 .send(result)
                 .await
