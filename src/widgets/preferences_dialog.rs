@@ -6,9 +6,13 @@
 // SPDX-License-Identifier: MIT
 //
 
-use crate::config::APP_ID;
+use crate::{config::APP_ID, secrets};
 use adw::{prelude::*, subclass::prelude::*};
-use gtk::{gio, glib};
+use gtk::{
+    gio,
+    glib::{self, clone},
+};
+use tracing::error;
 
 mod imp {
     use super::*;
@@ -23,6 +27,10 @@ mod imp {
         pub client_cert_chooser: gtk::TemplateChild<CertChooser>,
         #[template_child]
         pub client_key_chooser: gtk::TemplateChild<CertChooser>,
+        #[template_child]
+        pub client_password_entry: gtk::TemplateChild<adw::PasswordEntryRow>,
+        #[template_child]
+        pub server_alt_name_entry: gtk::TemplateChild<adw::EntryRow>,
         pub settings: gio::Settings,
     }
 
@@ -32,6 +40,8 @@ mod imp {
                 root_cert_chooser: gtk::TemplateChild::default(),
                 client_cert_chooser: gtk::TemplateChild::default(),
                 client_key_chooser: gtk::TemplateChild::default(),
+                client_password_entry: gtk::TemplateChild::default(),
+                server_alt_name_entry: gtk::TemplateChild::default(),
                 settings: gio::Settings::new(&format!("{APP_ID}.connection")),
             }
         }
@@ -69,6 +79,24 @@ mod imp {
             self.settings
                 .bind("auth-client-key-uri", &self.client_key_chooser.get(), "uri")
                 .build();
+            self.settings
+                .bind(
+                    "auth-server-alt-name",
+                    &self.server_alt_name_entry.get(),
+                    "text",
+                )
+                .build();
+            self.client_password_entry.connect_apply(clone!(
+                #[weak(rename_to = this)]
+                self,
+                move |_| {
+                    let uri = this.client_key_chooser.uri();
+                    let password = this.client_password_entry.text();
+                    if let Err(e) = secrets::store_password(&uri, &password) {
+                        error!("Failed to store client key password: {e}");
+                    }
+                }
+            ));
         }
         fn dispose(&self) {
             self.dispose_template();

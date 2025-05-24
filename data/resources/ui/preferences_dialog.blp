@@ -26,6 +26,13 @@ template $PreferencesDialog : Adw.PreferencesDialog {
         title: _("Client private key");
         $CertChooser client_key_chooser {}
       }
+      Adw.PasswordEntryRow client_password_entry {
+        title: _("Client private key password");
+        show-apply-button: true;
+      }
+      Adw.EntryRow server_alt_name_entry {
+        title: _("Server alternate name");
+      }
     }
   }
 }

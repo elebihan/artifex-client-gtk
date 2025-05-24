@@ -35,5 +35,10 @@
       <summary>Client key URI</summary>
       <description>URI of the client key to use for connection authentication</description>
     </key>
+    <key name="auth-server-alt-name" type="s">
+      <default>""</default>
+      <summary>Server alternate name</summary>
+      <description>Server alternate name to use for TLS certificate authentication</description>
+    </key>
   </schema>
 </schemalist>
