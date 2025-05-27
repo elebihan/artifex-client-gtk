@@ -16,6 +16,7 @@ mod application;
 mod client;
 mod i18n;
 mod pages;
+mod secrets;
 mod widgets;
 mod window;
 
