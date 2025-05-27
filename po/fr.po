@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: artifex-client-gtk 0.1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-22 20:18+0000\n"
+"POT-Creation-Date: 2025-05-27 09:23+0000\n"
 "PO-Revision-Date: 2025-04-17 11:47+0200\n"
 "Last-Translator: Éric Le Bihan <eric.le.bihan.dev@free.fr>\n"
 "Language-Team: French\n"
@@ -38,96 +38,134 @@ msgstr "Entrez l'adresse du serveur et pressez \"Connexion\""
 msgid "Close"
 msgstr "Fermer"
 
-#: src/widgets/inspection_page.rs:61 src/pages/inspection_page.rs:61
+#: src/widgets/cert_chooser.rs:39 src/widgets/cert_chooser.rs:121
+msgid "Select PEM file"
+msgstr "Sélectionner un fichier PEM"
+
+#: src/widgets/cert_chooser.rs:102
+msgid "None"
+msgstr "Aucun"
+
+#: src/widgets/cert_chooser.rs:118
+msgid "PEM files"
+msgstr "Fichiers PEM"
+
+#: src/widgets/cert_chooser.rs:141 src/pages/batch/batch_execution_page.rs:143
+msgid "Invalid file"
+msgstr "Fichier invalide"
+
+#: src/pages/execution/execution_page.rs:76
+#: _build/data/resources/ui/window.ui:82 _build/data/resources/ui/window.ui:111
+msgid "Execution"
+msgstr "Exécution"
+
+#: src/pages/execution/execution_page.rs:79
+msgid "Command execution menu"
+msgstr "Menu de l'exécution de commande"
+
+#: src/pages/batch/batch_execution_page.rs:81
+msgid "Batch Execution"
+msgstr "Exécution de batch"
+
+#: src/pages/batch/batch_execution_page.rs:84
+msgid "Open batch file"
+msgstr "Ouvrir un ficher batch"
+
+#: src/pages/batch/batch_execution_page.rs:93
+msgid "Execute batch"
+msgstr "Exécuter le batch"
+
+#: src/pages/batch/batch_execution_page.rs:122
+msgid "Batch files"
+msgstr "Fichiers batch"
+
+#: src/pages/batch/batch_execution_page.rs:125
+msgid "Select batch file"
+msgstr "Sélectionner un fichier batch"
+
+#: src/pages/batch/batch_execution_page.rs:138
+msgid "Failed to open file"
+msgstr "Impossible d'ouvrir le fichier"
+
+#: src/pages/batch/batch_execution_page.rs:148
+msgid "Invalid file name"
+msgstr "Nom de fichier invalide"
+
+#: src/pages/batch/batch_execution_page.rs:164
+msgid "Failed to read file"
+msgstr "Impossible de lire le fichier"
+
+#: src/pages/batch/batch_execution_page.rs:169
+#: src/pages/batch/batch_execution_page.rs:174
+msgid "Failed to load batch"
+msgstr "Impossible de charger le batch"
+
+#: src/pages/batch/batch_execution_page.rs:205
+msgid "Invalid batch"
+msgstr "Batch invalide"
+
+#: src/pages/batch/batch_execution_page.rs:237
+msgid "Failed to render report"
+msgstr "Impossible de générer le rapport"
+
+#: src/pages/batch/batch_execution_page.rs:242
+msgid "Failed to run batch"
+msgstr "Impossible de lancer le batch"
+
+#: src/pages/batch/batch_execution_page.rs:256
+msgid "Batch output copied"
+msgstr "Sortie du batch copiée"
+
+#: src/pages/inspection/inspection_page.rs:61
 #: _build/data/resources/ui/window.ui:75
 msgid "Inspection"
 msgstr "Inspection"
 
-#: src/widgets/inspection_page.rs:64 src/pages/inspection_page.rs:64
+#: src/pages/inspection/inspection_page.rs:64
 msgid "Refresh information"
 msgstr "Rafraîchir les informations"
 
-#: src/widgets/batch_execution_page.rs:81 src/pages/batch_execution_page.rs:81
-msgid "Batch Execution"
-msgstr "Exécution de batch"
+#: src/pages/inspection/inspection_page.rs:115
+msgid "Inspection failed"
+msgstr "L'inspection a échoué"
 
-#: src/widgets/batch_execution_page.rs:84 src/pages/batch_execution_page.rs:84
-msgid "Open batch file"
-msgstr "Ouvrir un ficher batch"
+#: src/pages/upgrade/upgrade_page.rs:75 _build/data/resources/ui/window.ui:89
+msgid "Upgrade"
+msgstr "Mise à jour"
 
-#: src/widgets/batch_execution_page.rs:93 src/pages/batch_execution_page.rs:93
-msgid "Execute batch"
-msgstr "Exécuter le batch"
+#: src/pages/upgrade/upgrade_page.rs:79
+msgid "Start upgrade"
+msgstr "Démarrer la mise à jour"
 
-#: src/widgets/batch_execution_page.rs:122
-#: src/pages/batch_execution_page.rs:122
-msgid "Batch files"
-msgstr "Fichiers batch"
+#: src/pages/upgrade/upgrade_page.rs:127 src/pages/upgrade/upgrade_page.rs:183
+msgid "Upgrade failed"
+msgstr "La mise à jour a échoué"
 
-#: src/widgets/batch_execution_page.rs:125
-#: src/pages/batch_execution_page.rs:125
-msgid "Select batch file"
-msgstr "Sélectionner un fichier batch"
+#: src/pages/upgrade/upgrade_page.rs:128
+msgid "Upgrade in progress..."
+msgstr "Mise à jour en cours..."
 
-#: src/widgets/batch_execution_page.rs:143
-#: src/pages/batch_execution_page.rs:143
-msgid "Invalid file"
-msgstr "Fichier invalide"
+#: src/pages/upgrade/upgrade_page.rs:129
+msgid "Upgrade succeed"
+msgstr "Mise à jour réussie"
 
-#: src/widgets/batch_execution_page.rs:148
-#: src/pages/batch_execution_page.rs:148
-msgid "Invalid file name"
-msgstr "Nom de fichier invalide"
+#: src/pages/upgrade/upgrade_page.rs:130
+msgid "Press \"start\" to start the upgrade"
+msgstr "Appuyer sur \"démarrer\" pour démarrer la mise à jour"
 
-#: src/widgets/batch_execution_page.rs:164
-#: src/pages/batch_execution_page.rs:164
-msgid "Failed to read file"
-msgstr "Impossible de lire le fichier"
-
-#: src/widgets/batch_execution_page.rs:169
-#: src/widgets/batch_execution_page.rs:174
-#: src/pages/batch_execution_page.rs:169 src/pages/batch_execution_page.rs:174
-msgid "Failed to load batch"
-msgstr "Impossible de charger le batch"
-
-#: src/widgets/batch_execution_page.rs:205
-#: src/pages/batch_execution_page.rs:205
-msgid "Invalid batch"
-msgstr "Batch invalide"
-
-#: src/widgets/batch_execution_page.rs:237
-#: src/pages/batch_execution_page.rs:237
-msgid "Failed to render report"
-msgstr "Impossible de générer le rapport"
-
-#: src/widgets/batch_execution_page.rs:242
-#: src/pages/batch_execution_page.rs:242
-msgid "Failed to run batch"
-msgstr "Impossible de lancer le batch"
-
-#: src/widgets/batch_execution_page.rs:256
-#: src/pages/batch_execution_page.rs:256
-msgid "Batch output copied"
-msgstr "Sortie du batch copiée"
-
-#: src/application.rs:128
+#: src/application.rs:129
 msgid "translator-credits"
 msgstr ""
 
-#: src/pages/execution/execution_page.rs:65
-#: _build/data/resources/ui/window.ui:82 _build/data/resources/ui/window.ui:104
-msgid "Execution"
-msgstr "Exécution"
-
-#: src/window.rs:256
+#: src/window.rs:268
 msgid "Connection failed"
 msgstr "La connexion a échouée"
 
-#: src/window.rs:258
+#: src/window.rs:270
 msgid "Ok"
 msgstr "Ok"
 
-#: src/window.rs:280
+#: src/window.rs:292
 msgid "Please enter a valid URL"
 msgstr "Veuillez entrer une URL valide"
 
@@ -163,6 +201,14 @@ msgstr "Entrez l'URL du serveur"
 msgid "Toggle connection to server"
 msgstr "Basculer la connexion au serveur"
 
+#: _build/data/resources/ui/execution_page.ui:56
+msgid "Clear commands"
+msgstr "Effacer les commandes"
+
+#: _build/data/resources/ui/execution_page.ui:60
+msgid "Search command"
+msgstr "Rechercher une commande"
+
 #: _build/data/resources/ui/inspection_page.ui:18
 msgid "System information"
 msgstr "Informations système"
@@ -174,6 +220,34 @@ msgstr "Version du noyau"
 #: _build/data/resources/ui/inspection_page.ui:32
 msgid "System uptime"
 msgstr "Durée de disponibilité du système"
+
+#: _build/data/resources/ui/preferences_dialog.ui:12
+msgid "Connection"
+msgstr "Connexion"
+
+#: _build/data/resources/ui/preferences_dialog.ui:15
+msgid "Authentication"
+msgstr "Authentification"
+
+#: _build/data/resources/ui/preferences_dialog.ui:18
+msgid "CA certificate"
+msgstr "Certificat CA"
+
+#: _build/data/resources/ui/preferences_dialog.ui:26
+msgid "Client certificate"
+msgstr "Certificat client"
+
+#: _build/data/resources/ui/preferences_dialog.ui:34
+msgid "Client private key"
+msgstr "Clé privée client"
+
+#: _build/data/resources/ui/preferences_dialog.ui:42
+msgid "Client private key password"
+msgstr "Mot de passe de la clé privée client"
+
+#: _build/data/resources/ui/preferences_dialog.ui:48
+msgid "Server alternate name"
+msgstr "Nom alternatif du serveur"
 
 #: _build/data/resources/ui/window.ui:36
 msgid "Menu"
@@ -191,19 +265,27 @@ msgstr "Inspecter l'appareil"
 msgid "Execute a command on the device"
 msgstr "Exécuter une commande sur l'appareil"
 
-#: _build/data/resources/ui/window.ui:93
+#: _build/data/resources/ui/window.ui:91
+msgid "Upgrade system"
+msgstr "Mise à jour du système"
+
+#: _build/data/resources/ui/window.ui:100
 msgid "Batch"
 msgstr "Batch"
 
-#: _build/data/resources/ui/window.ui:106
+#: _build/data/resources/ui/window.ui:113
 msgid "Execute a batch"
 msgstr "Exécuter un batch"
 
-#: _build/data/resources/ui/window.ui:170
+#: _build/data/resources/ui/window.ui:185
 msgid "About artifex-client-gtk"
 msgstr "À propos d'artifex-client-gtk"
 
-#: _build/data/resources/ui/window.ui:174
+#: _build/data/resources/ui/window.ui:189
+msgid "Preferences"
+msgstr "Préférences"
+
+#: _build/data/resources/ui/window.ui:193
 msgid "Show shortcuts"
 msgstr "Afficher les raccourcis"
 
@@ -214,60 +296,85 @@ msgstr "Général"
 
 #: data/resources/ui/shortcuts.ui:13
 msgctxt "shortcut window"
+msgid "Preferences"
+msgstr "Préférences"
+
+#: data/resources/ui/shortcuts.ui:19
+msgctxt "shortcut window"
 msgid "Show Shortcuts"
 msgstr "Afficher les raccourcis"
 
-#: data/resources/ui/shortcuts.ui:19
+#: data/resources/ui/shortcuts.ui:25
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Quitter"
 
-#: data/resources/ui/shortcuts.ui:27
+#: data/resources/ui/shortcuts.ui:33
 msgctxt "shortcut window"
 msgid "Connection"
 msgstr "Connexion"
 
-#: data/resources/ui/shortcuts.ui:30
+#: data/resources/ui/shortcuts.ui:36
 msgctxt "shortcut window"
 msgid "Toggle connection"
 msgstr "Basculer la connexion"
 
-#: data/resources/ui/shortcuts.ui:38
+#: data/resources/ui/shortcuts.ui:44
 msgctxt "shortcut window"
 msgid "System Inspection"
 msgstr "Inspection du système"
 
-#: data/resources/ui/shortcuts.ui:41
+#: data/resources/ui/shortcuts.ui:47
 msgctxt "shortcut window"
 msgid "Refresh information"
 msgstr "Rafraîchir les informations"
 
-#: data/resources/ui/shortcuts.ui:49
+#: data/resources/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "System Execution"
 msgstr "Exécution sur le système"
 
-#: data/resources/ui/shortcuts.ui:52
+#: data/resources/ui/shortcuts.ui:58
 msgctxt "shortcut window"
 msgid "Execute command"
 msgstr "Exécuter une commande"
 
-#: data/resources/ui/shortcuts.ui:60
+#: data/resources/ui/shortcuts.ui:64
+msgctxt "shortcut window"
+msgid "Clear commands"
+msgstr "Effacer les commandes"
+
+#: data/resources/ui/shortcuts.ui:70
+msgctxt "shortcut window"
+msgid "Search command"
+msgstr "Rechercher une commande"
+
+#: data/resources/ui/shortcuts.ui:78
+msgctxt "shortcut window"
+msgid "System Upgrade"
+msgstr "Mise à jour du système"
+
+#: data/resources/ui/shortcuts.ui:81
+msgctxt "shortcut window"
+msgid "Start upgrade"
+msgstr "Démarrer la mise à jour"
+
+#: data/resources/ui/shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Batch Execution"
 msgstr "Exécution de batch"
 
-#: data/resources/ui/shortcuts.ui:63
+#: data/resources/ui/shortcuts.ui:92
 msgctxt "shortcut window"
 msgid "Open batch"
 msgstr "Ouvrir un batch"
 
-#: data/resources/ui/shortcuts.ui:69
+#: data/resources/ui/shortcuts.ui:98
 msgctxt "shortcut window"
 msgid "Execute batch"
 msgstr "Exécuter un batch"
 
-#: data/resources/ui/shortcuts.ui:75
+#: data/resources/ui/shortcuts.ui:104
 msgctxt "shortcut window"
 msgid "Copy output"
 msgstr "Copier la sortie"
