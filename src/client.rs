@@ -9,11 +9,8 @@
 use crate::{config::APP_ID, secrets};
 pub use artifex_client_cli::{client, tls};
 pub use artifex_rpc::artifex_client::ArtifexClient;
-use gtk::{
-    gio::{self, prelude::*},
-    glib,
-};
-use std::{path::PathBuf, sync::OnceLock};
+use gtk::gio::{self, prelude::*};
+use std::sync::OnceLock;
 use thiserror::Error;
 use tokio::runtime::Runtime;
 use tonic::transport::Channel;
@@ -31,18 +28,6 @@ pub(crate) enum Error {
     Tls(#[from] tls::Error),
     #[error("Tonic transport error: {0}")]
     Tonic(#[from] tonic::transport::Error),
-    #[error("Unsupported scheme: {0}")]
-    UnsupportedScheme(String),
-    #[error("URI error: {0}")]
-    Uri(String),
-}
-
-fn path_buf_from_uri(uri: &str) -> Result<PathBuf, Error> {
-    let uri = glib::Uri::parse(uri, glib::UriFlags::NONE).map_err(|e| Error::Uri(e.to_string()))?;
-    match uri.scheme().as_str() {
-        "file" => Ok(PathBuf::from(uri.path())),
-        s => Err(Error::UnsupportedScheme(s.to_string())),
-    }
 }
 
 pub(crate) fn runtime() -> &'static Runtime {
@@ -82,9 +67,9 @@ pub(crate) async fn create_tls_config() -> Result<tls::Config, Error> {
         .await
         .ok();
     let config = tls::Config {
-        root_cert: path_buf_from_uri(&settings.root_cert_uri)?,
-        client_cert: path_buf_from_uri(&settings.client_cert_uri)?,
-        client_key: path_buf_from_uri(&settings.client_key_uri)?,
+        root_cert: settings.root_cert_uri,
+        client_cert: settings.client_cert_uri,
+        client_key: settings.client_key_uri,
         client_password,
         server_alt_name,
     };
