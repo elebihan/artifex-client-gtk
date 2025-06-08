@@ -7,7 +7,7 @@
 //
 
 use crate::{config::APP_ID, secrets};
-pub use artifex_client_cli::{client, tls};
+pub use artifex_client_kit::{client, tls};
 pub use artifex_rpc::artifex_client::ArtifexClient;
 use gtk::gio::{self, prelude::*};
 use std::sync::OnceLock;
@@ -66,11 +66,15 @@ pub(crate) async fn create_tls_config() -> Result<tls::Config, Error> {
     let client_password = secrets::retrieve_password(&settings.client_key_uri)
         .await
         .ok();
+    let client_key_uri = if let Some(client_password) = client_password {
+        format!("{}?password={}", settings.client_key_uri, client_password)
+    } else {
+        settings.client_key_uri
+    };
     let config = tls::Config {
         root_cert: settings.root_cert_uri,
         client_cert: settings.client_cert_uri,
-        client_key: settings.client_key_uri,
-        client_password,
+        client_key: client_key_uri,
         server_alt_name,
     };
     Ok(config)
